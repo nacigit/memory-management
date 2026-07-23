@@ -1,0 +1,880 @@
+nibraimo@f0r5s7:~/Source/Pscine42/exercises$ cd
+nibraimo@f0r5s7:~$ cd corr/
+nibraimo@f0r5s7:~/corr$ ls
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ git clone git@github.com:42learners/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3.git
+Cloning into 'C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3'...
+remote: Enumerating objects: 28, done.
+remote: Counting objects: 100% (28/28), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 28 (delta 9), reused 28 (delta 9), pack-reused 0 (from 0)
+Receiving objects: 100% (28/28), 5.86 KiB | 5.86 MiB/s, done.
+Resolving deltas: 100% (9/9), done.
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ cd C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ tree
+.
+├── ex0
+│   └── ft_stdrup.c
+├── ex1
+│   └── ft_range.c
+├── ex2
+│   └── ft_ultimate_range.c
+├── ex3
+│   └── ft_strjoin.c
+├── ex4
+│   ├── ft_convert_base2.c
+│   └── ft_convert_base.c
+└── ex5
+    └── ft_split.c
+
+7 directories, 7 files
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ norminette 
+Setting locale to en_US
+ft_stdrup.c: OK!
+ft_range.c: OK!
+ft_ultimate_range.c: OK!
+ft_strjoin.c: OK!
+ft_convert_base.c: OK!
+ft_convert_base2.c: OK!
+ft_split.c: OK!
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cat ex0/ft_stdrup.c 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stdrup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/15 12:57:04 by ajouffre          #+#    #+#             */
+/*   Updated: 2026/07/23 19:49:55 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+char	*ft_strdup(char *src)
+{
+	char	*copy;
+	int		size;
+	int		i;
+
+	i = 0;
+	size = 0;
+	while (src[i])
+		i++;
+	size = i;
+	copy = malloc(size * (sizeof(char) + 1));
+	if (copy == NULL || src == NULL)
+		return (NULL);
+	i = 0;
+	while (i <= size)
+	{
+		copy[i] = src[i];
+		i++;
+	}
+	return (copy);
+}
+/*#include <stdio.h>
+#include <stdlib.h>
+
+char	*ft_strdup(char *src);
+
+int	main(void)
+{
+	char	*str;
+	char	*strcopy;
+
+	str = "Hello!1234 1\n";
+	printf("%s", str);
+
+	strcopy = ft_strdup(str);
+
+	printf("%s", strcopy);
+	free(strcopy);
+	strcopy = NULL;
+	return(0);
+}*/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex0/ft_stdrup.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror 
+ex0/  ex1/  ex2/  ex3/  ex4/  ex5/  .git/ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex0/ft_stdrup.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Hello!1234 1
+Hello!1234 1
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex0/ft_stdrup.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex0/ft_stdrup.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Original Str 
+Copy: Original Str 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cat ex1/ft_range.c 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/15 15:35:37 by ajouffre          #+#    #+#             */
+/*   Updated: 2026/07/22 18:45:04 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int	*ft_range(int min, int max)
+{
+	int	*arr;
+	int	i;
+
+	if (min >= max)
+		return (NULL);
+	arr = malloc((max - min) * sizeof(int));
+	if (arr == NULL)
+		return (NULL);
+	i = 0;
+	while (i < (max - min))
+	{
+		arr[i] = min + i;
+		i++;
+	}
+	return (arr);
+}
+/*#include <stdio.h>
+#include <stdlib.h>
+
+int	main(void)
+{
+	int *values;
+	int	a;
+	int	b;
+
+	a = 12;
+	b = 32;
+	printf("%d jusqu'a %d exclu:\n", a, b);
+	values = ft_range(a, b);
+	if (!values)
+	{	
+		printf("Impossible\n");
+		return (0);
+	}
+	int	(i) = 0;
+	while (i < b - a)
+	{
+		printf("%d, ", *values);
+		values++;
+		i++;
+	}
+	printf("\n");
+	return(1);
+}*/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex1/ft_range.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex1/*
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./
+bash: ./: Is a directory
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+12 jusqu'a 32 exclu:
+12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex1/ft_range.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex1/*
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+-2 jusqu'a 32 exclu:
+-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cat ex2/ft_ultimate_range.c 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/15 15:35:37 by ajouffre          #+#    #+#             */
+/*   Updated: 2026/07/23 19:48:39 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int	ft_ultimate_range(int **range, int min, int max)
+{
+	int	size;
+	int	i;
+
+	size = max - min;
+	if (size <= 0)
+	{
+		*range = NULL;
+		return (0);
+	}
+	*range = malloc((max - min) * sizeof(int));
+	if (*range == NULL)
+		return (-1);
+	i = 0;
+	while (i < (max - min))
+	{
+		(*range)[i] = min + i;
+		i++;
+	}
+	return (size);
+}
+/*#include <stdlib.h>
+#include <stdio.h>
+
+int	main(void)
+{
+	int *result;
+	int size;
+	int	a;
+	int	b;
+
+	a = -12;
+	b = 12;
+	printf("%d jusqu'a %d exclu:\n", a, b);
+	size = ft_ultimate_range(&result, a, b);
+	if (size <= 0)
+	{	
+		printf("Impossible\n");
+		return (0);
+	}
+	int	(i) = 0;
+	while (i < b - a)
+	{
+		printf("%d, ", result[i]);
+		i++;
+	}
+	printf("\n");
+	printf("Taille: %d\n", size);
+
+
+
+
+
+
+	a = 2147483646;
+	b = 2147483647;
+	printf("%d jusqu'a %d exclu:\n", a, b);
+	size = ft_ultimate_range(&result, a, b);
+	if (size <= 0)
+	{	
+		printf("Impossible\n");
+		return (0);
+	}
+	i = 0;
+	while (i < b - a)
+	{
+		printf("%d, ", result[i]);
+		i++;
+	}
+	printf("\n");
+	printf("Taille: %d\n", size);
+	return(1);
+}*/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex2/ft_ultimate_range.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex2/*
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+-12 jusqu'a 12 exclu:
+-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 
+Taille: 24
+2147483646 jusqu'a 2147483647 exclu:
+2147483646, 
+Taille: 1
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex2/ft_ultimate_range.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex2/*
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+24 jusqu'a 12 exclu:
+Impossible
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cat ex3/ft_strjoin.c 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/15 20:08:29 by ajouffre          #+#    #+#             */
+/*   Updated: 2026/07/23 19:49:33 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+#include <stdio.h>
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_charcounter(int size, char **strs, char *sep)
+{
+	int	charamount;
+	int	i;
+
+	i = 0;
+	charamount = 0;
+	while (i < size)
+		charamount += ft_strlen(strs[i++]);
+	if (size > 1)
+		charamount = charamount + ((size - 1) * ft_strlen(sep));
+	return (charamount);
+}
+
+void	joiner(int size, char **strs, char *output, char *sep)
+{
+	int (charnbr) = ft_charcounter(size, strs, sep);
+	int (strindex) = 0;
+	int (letter);
+	int (i) = 0;
+	int (s) = 0;
+	while (i < charnbr)
+	{
+		while (strindex < size)
+		{
+			letter = 0;
+			while (strs[strindex][letter])
+				output[i++] = strs[strindex][letter++];
+			if (strs[strindex + 1])
+			{
+				s = 0;
+				while (sep[s])
+					output[i++] = sep[s++];
+			}
+			strindex++;
+		}
+		i++;
+	}
+	output[i] = '\0';
+}
+
+char	*ft_strjoin(int size, char **strs, char *sep)
+{
+	char	*output;
+	int		charnbr;
+
+	charnbr = ft_charcounter(size, strs, sep);
+	output = malloc(sizeof(char) * charnbr + 1);
+	if (!output)
+		return (NULL);
+	joiner(size, strs, output, sep);
+	return (output);
+}
+/*#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int	main(void)
+{
+	char	*words[] = {"word1", "Word2", "Word3", "A", NULL};
+	char	*words2[] = {NULL};
+	char	sep[] = "|";
+	char	sep2[] = "|";
+
+
+
+	printf("%s\n", ft_strjoin(4, words, sep));
+	printf("%s\n", ft_strjoin(0, words2, sep2));
+	return(0);
+}*/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex3/ft_strjoin.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex3/*
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+word1|Word2|Word3|A
+
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cat ex4/ft_convert_base*
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_convert_base2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/16 22:43:47 by ajouffre          #+#    #+#             */
+/*   Updated: 2026/07/23 19:53:15 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int	str_len(char *str);
+int	ft_power(int nb, int power);
+
+int	get_index(char *base, char c)
+{
+	int (i) = 0;
+	int (base_len) = str_len(base);
+	while (i < base_len)
+	{
+		if (c == base[i])
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	str_to_int(char *str, char *base_from)
+{
+	int (i) = 0;
+	int (sign) = 1;
+	int (index) = 0;
+	int (result_nbr) = 0;
+	int (base_len) = str_len(base_from);
+	while (str[i])
+	{
+		while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '
+			|| str[i] == '+' || str[i] == '-')
+		{
+			if (str[i] == '-')
+				sign *= -1;
+			i++;
+		}
+		while (str[i])
+		{
+			index = get_index(base_from, str[i]);
+			result_nbr += (index * ft_power(base_len, str_len(str) - 1 - i));
+			i++;
+		}
+	}
+	return (result_nbr * sign);
+}
+
+int	ft_outsize(int nbr, int base_len)
+{
+	int	count;
+
+	count = -1;
+	if (nbr == 0)
+		count = 0;
+	while (nbr > 0)
+	{
+		nbr /= base_len;
+		count++;
+	}
+	return (count);
+}
+
+char	*int_to_str(int nbr, char *base_to)
+{
+	int (powerbase) = 0;
+	int (negative) = 0;
+	int (i) = 0;
+	if (nbr < 0)
+	{
+		negative = 1;
+		nbr = -nbr;
+		i = 1;
+	}
+	int (base_size) = str_len(base_to);
+	int (outlen) = ft_outsize(nbr, base_size);
+	char *(output) = malloc(sizeof(char) * (outlen + 1 + negative));
+	while (nbr >= 0 && outlen >= 0)
+	{
+		powerbase = ft_power(base_size, outlen);
+		output[i] = base_to[nbr / powerbase];
+		if (powerbase <= nbr)
+			nbr %= ft_power(base_size, outlen);
+		i++;
+		outlen--;
+	}
+	if (negative == 1)
+		output[0] = '-';
+	output[i] = '\0';
+	return (output);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_convert_base.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/16 22:43:44 by ajouffre          #+#    #+#             */
+/*   Updated: 2026/07/23 19:58:00 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int		str_to_int(char *str, char *base_from);
+char	*int_to_str(int nbr, char *base_to);
+int		get_index(char *base, char c);
+
+int	str_len(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	ft_power(int nb, int power)
+{
+	if (power < 0)
+		return (0);
+	if (power > 0)
+		return (nb * ft_power(nb, power - 1));
+	return (1);
+}
+
+int	basecheck(char *base)
+{
+	int (i) = 0;
+	int (j) = 0;
+	while (base[i])
+	{
+		if (base[i] == '+' || base[i] == '-'
+			|| (base[i] >= 9 && base[i] <= 13)
+			|| base[i] == ' ')
+			return (0);
+		j = i + 1;
+		while (base[j])
+		{
+			if (base[j] == base[i])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return ((!base[0] + !base[1]) == 0);
+}
+
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+{
+	char	*result;
+	int		number;
+
+	if (basecheck(base_from) == 0 || basecheck(base_to) == 0)
+		return (NULL);
+	number = str_to_int(nbr, base_from);
+	result = int_to_str(number, base_to);
+	if (!result)
+		return (NULL);
+	return (result);
+}
+/*#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
+char *ft_convert_base(char *nbr, char *base_from, char *base_to);
+
+int	main(int argc, char **argv)
+{
+	char	*result;
+
+	if (argc < 4)
+	{
+		write(2, "Not enough arguments", 20);
+		return (-1);
+	}
+	if (argc == 4)
+	{
+		printf("Nb: %s, In: %s, To: %s\n", argv[1], argv[2], argv[3]);
+		result = ft_convert_base(argv[1], argv[2], argv[3]);
+		if (result != NULL)
+			printf("Is: %s\n", result);
+		else
+			printf("Returned NULL\n");
+	}
+	if (argc > 4)
+	{
+		write(2, "Too many arguments", 18);
+		return (-1);
+	}
+	free(result);
+	return (0);
+}*/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex4/*
+/usr/bin/ld: /usr/lib/gcc/x86_64-redhat-linux/15/../../../../lib64/crt1.o: in function `_start':
+(.text+0x1b): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex4/ft_convert_base
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex4/ft_convert_base.c 
+ex0/  ex1/  ex2/  ex3/  ex4/  ex5/  .git/ 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex4/ft_convert_base.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex4/*
+ex4/ft_convert_base.c: In function ‘main’:
+ex4/ft_convert_base.c:103:9: error: expected declaration or statement at end of input
+  103 |         return (0);
+      |         ^~~~~~
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex4/ft_convert_base.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex4/*
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ld
+ld: no input files
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ls
+a.out  ex0  ex1  ex2  ex3  ex4  ex5
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Not enough argumentsnibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 1 71
+Not enough argumentsnibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 1 71 0123456789
+Nb: 1, In: 71, To: 0123456789
+Is: 1
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 1 71 01
+Nb: 1, In: 71, To: 01
+Is: 1
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out a a 0a
+Nb: a, In: a, To: 0a
+Returned NULL
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out a ab 0a
+Nb: a, In: ab, To: 0a
+Is: 0
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 0 01 023
+Nb: 0, In: 01, To: 023
+Is: 0
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 0 01 230
+Nb: 0, In: 01, To: 230
+Is: 2
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 11111 01 09 
+Nb: 11111, In: 01, To: 09
+Is: 99999
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 11111 01 0123456789 
+Nb: 11111, In: 01, To: 0123456789
+Is: 31
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 11111 01 01234567
+Nb: 11111, In: 01, To: 01234567
+Is: 37
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 11111 01 0123456789abcdef
+Nb: 11111, In: 01, To: 0123456789abcdef
+Is: 1f
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cat ex5/ft_split.c 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajouffre <ajouffre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/16 13:54:43 by icohen-s          #+#    #+#             */
+/*   Updated: 2026/07/23 19:44:39 by ajouffre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int	ft_is_sep(char c, char *seps)
+{
+	int	i;
+
+	i = 0;
+	while (seps[i])
+	{
+		if (c == seps[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_size(char *str, int startind, char *seps)
+{
+	int (i) = startind;
+	int (size) = 1;
+	while (str[i] && !ft_is_sep(i++, seps))
+		size++;
+	return (size);
+}
+
+int	ft_wrdcount(char *str, char *seps)
+{
+	int (wordcnt) = 0;
+	int (i) = 0;
+	while (str[i])
+	{
+		if (ft_is_sep(str[i], seps) == 0)
+		{
+			wordcnt++;
+			while (ft_is_sep(str[i], seps) == 0 && str[i])
+				i++;
+		}
+		else if (ft_is_sep(str[i], seps) == 1 && str[i])
+			i++;
+	}
+	return (wordcnt);
+}
+
+char	**ft_split(char *str, char *seps)
+{
+	char	**rslt;
+
+	int (startind) = 0;
+	int (letterind) = 0;
+	int (w_ind) = 0;
+	int (i) = 0;
+	rslt = malloc((sizeof(char *) * (ft_wrdcount(str, seps)) + 1));
+	while (str[i] && rslt != NULL)
+	{
+		if (ft_is_sep(str[i], seps) == 0)
+		{
+			startind = i;
+			rslt[w_ind] = malloc(ft_size(str, startind, seps));
+			while (!ft_is_sep(str[i], seps) && str[i])
+				rslt[w_ind][letterind++] = str[i++];
+			rslt[w_ind][letterind] = '\0';
+			letterind = 0;
+			w_ind++;
+		}
+		else
+			i++;
+	}
+	rslt[i] = NULL;
+	return (rslt);
+}
+/*#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+int	main(void)
+{
+	char	*str = "Te st Abercombie & Fitch, ?";
+	char	*charset = " ,adbf|";
+	char	**result;
+	int	size;
+	int	i;
+	
+	printf("Inputstr= |%s|\n", str);
+	printf("Sep charset= |%s|\n", charset);
+	result = ft_split(str, charset);
+	size = strlen(str);
+	printf("Characters in input: %d\n", size);
+	i = 0;
+	while (result[i])
+		i++;
+	printf("Words: %d\n", i);
+	i = 0;
+	while (result[i])
+		printf("%s$\n", result[i++]);
+	i = 0;
+	while (result[i])
+		free(result[i++]);
+	free(result);
+	result = NULL;
+	return (0);
+}*/
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Not enough argumentsnibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Inputstr= |Te st Abercombie & Fitch, ?|
+Sep charset= | ,adbf||
+Characters in input: 27
+Words: 8
+Te$
+st$
+A$
+ercom$
+ie$
+&$
+Fitch$
+?$
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Inputstr= |Te st Abercombie & |mer Fitch, ?|
+Sep charset= | ,adbf||
+Characters in input: 32
+Words: 9
+Te$
+st$
+A$
+ercom$
+ie$
+&$
+mer$
+Fitch$
+?$
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Inputstr= |Te st Abercombie & a|mer Fitch, ?|
+Sep charset= | ,adbf||
+Characters in input: 33
+Words: 9
+Te$
+st$
+A$
+ercom$
+ie$
+&$
+mer$
+Fitch$
+?$
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Inputstr= |Te st Abercombie & a|mer Fitch, ?|
+Sep charset= | ,adbf|F|
+Characters in input: 33
+Words: 9
+Te$
+st$
+A$
+ercom$
+ie$
+&$
+mer$
+itch$
+?$
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Inputstr= |Te st Abercombie & a|mer Fitch Bonjour, ?|
+Sep charset= | ,adbf|F|
+Characters in input: 41
+Words: 10
+Te$
+st$
+A$
+ercom$
+ie$
+&$
+mer$
+itch$
+Bonjour$
+?$
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ vim ex5/ft_split.c 
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ gcc -Wall -Wextra -Werror ex5/ft_split.c
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ ./a.out 
+Inputstr= |Te st Abercombie & a|mer Fitch Bonjour, ?|
+Sep charset= | ,adbfj||
+Characters in input: 41
+Words: 11
+Te$
+st$
+A$
+ercom$
+ie$
+&$
+mer$
+Fitch$
+Bon$
+our$
+?$
+free(): invalid pointer
+Aborted (core dumped)
+nibraimo@f0r5s7:~/corr/C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3$ cd ..
+nibraimo@f0r5s7:~/corr$ rm C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3/
+rm: cannot remove 'C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3/': Is a directory
+nibraimo@f0r5s7:~/corr$ rm -rf C-Memory-Management-fb8391cb-161e-4062-8962-40ba683ca1a3/
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
+nibraimo@f0r5s7:~/corr$ 
